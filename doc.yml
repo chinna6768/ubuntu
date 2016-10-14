@@ -1,0 +1,26 @@
+- job:
+    block-downstream: false
+    block-upstream: false
+    builders:
+    - shell: |
+        #docker pull dockerfile/ubuntu
+        pwd
+        ls
+        docker build -t="dockerfile/ubuntu" /var/lib/jenkins/workspace/build-sample
+    concurrent: false
+    description: null
+    disabled: false
+    name: doc
+    parameters: []
+    project-type: freestyle
+    properties: []
+    publishers: []
+    scm:
+    - git:
+        branches:
+        - '*/master'
+        url: https://github.com/dockerfile/ubuntu
+    triggers: []
+    wrappers:
+    - build-name:
+        name: '#${BUILD_NUMBER}_${BRANCH_NAME}'
